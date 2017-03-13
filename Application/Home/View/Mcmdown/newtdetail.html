@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$data.name}</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @charset "utf-8";
+        /* Global Style Settings */
+        *{margin:0; padding:0;}
+        div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin:0;padding:0; font-family: Calibri; font-size:16px; color:#333;
+        }
+        body{
+            margin: 0 auto;
+            max-width: 640px;
+        }
+        html{padding: 0;}
+        img{vertical-align:top; border:0; }
+        .clear{clear:both; font-size:0; height:0; line-height:0; overflow:hidden}
+        .line{
+            width: 100%;
+            height:1px;
+            clear:both;
+            font-size:0;
+            line-height:0;
+            overflow:hidden;
+            border:0 solid #f2f2f2;
+            border-top-width: 1px;
+        }
+        #main{
+            width: 100%;
+            margin: 10px auto;
+            background-color: #FFF;
+        }
+        div{
+            font:normal 14px "微软雅黑";
+        }
+        #topicTag{
+            background-color: #efeced;
+        }
+        #main > div{
+            width: 95%;
+            margin: 5px auto;
+        }
+        #topicTag > div{
+            width: 96%;
+            height: 16px;
+            padding: 12px 0;
+            margin: 0 auto;
+            color: #ef71a1;
+            font:normal 14px "微软雅黑";
+        }
+        #topicTag > div:hover{
+            width: 90%;
+        }
+        #topicTag > div > img{
+            float: right;
+        }
+        .userPicInfo div{
+            font-family: "微软雅黑";
+        }
+        .userPicInfo{
+            height: 40px;
+            padding: 0;
+        }
+        .userPicInfo > div{
+            float: left;
+        }
+        .userPicInfo > div:nth-child(1){
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            /*background: url('../../../images/lookHS/user-icon.png') no-repeat 50% 50%;*/
+            background-size: 40px;
+        }
+        .userPicInfo > div:nth-child(2){
+            width: auto;
+            margin: 0 10px;
+            color: #fff;
+            font: normal 14px '微软雅黑';
+        }
+        .userPicInfo > div > div > div{
+            display: inline-block;
+        }
+
+        #topic{
+            height: 100%;
+            padding: 0;
+        }
+        #topic img{
+            width: 100%;
+            margin: 5px auto;
+        }
+        .lvTag{
+            /*width: 20px;*/
+            /*height: 14px;*/
+            margin-left: 3px;
+            padding: 0 2px;
+            border-radius: 5px;
+            background-color: #59c9f9;
+            color: #fff;
+            font:normal 12px Calibri!important;
+            display: inline-block;
+        }
+        .userName{
+            color: #556b93;
+        }
+        .userName + div{
+            color: #cbcbcb;
+            font-size: 12px;
+        }
+        .topicTitle{
+            color: #666666;
+        }
+		#topic p{
+            color: #666666;
+            font: normal 14px '微软雅黑';
+        }
+        #topic pre{
+            color: #666666;
+            font: normal 14px '微软雅黑';
+            white-space:pre-wrap;
+            word-wrap:break-word;
+        }
+        .tag{
+            display: inline-block;
+            /*height: 16px;*/
+            padding: 3px;
+            background-color: #fb4a92;
+            color: #fff;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+        #shareDiv{
+            height: 20px;
+            padding:5px 0;
+            background-color: #f2f2f2;
+            border-radius: 15px;
+        }
+        #shareDiv > div{
+            float: left;
+            text-align: center;
+        }
+        #shareDiv > div:nth-child(2n+1){
+            width: 25%;
+        }
+        #shareDiv > div:nth-child(2n){
+            width: 10%;
+            text-align: center;
+            color: #e1e1e1;
+            /*font-size: 20px;*/
+        }
+        #shareDiv > div >div{
+            display: inline-block;
+            margin: 2px 0 0 5px;
+            color: #666666;
+        }
+        .commentDiv{
+            width: 95%;
+            margin: 5px auto;
+        }
+        .commentContent{
+            margin-left: 50px;
+            color:#3c3c3c;
+        }
+        .downloadDiv{
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            margin: 0 auto;
+            max-width: 640px;
+        }
+        #praised{display:none;}
+    </style>
+    <script type="text/javascript" src="__ROOT__/include/js/jquery.js"></script>
+</head>
+<body>
+    <notempty name='data'>
+    <div id="topicTag" onclick="urlredirect({$data.post_tag_id})">
+        <div>话题来自：<span>{$data.post_tag}</span> <img src="__ROOT__/include/api/topic_click.png"></div>
+    </div>
+    <div id="main">
+        <div class="userPicInfo">
+
+            <neq name='data.user.img' value=''>
+            <div style="background: url('{$data.user.img}');background-size:40px"></div>
+            <else />
+            <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png');background-size:40px"></div>
+            </neq>
+
+            <div>
+                <div class="userName">{$data.user.nickname}<div class="lvTag">{$data.user.grade}</div></div>
+                <div>{:topictime($vo['add_time'])}</div>
+            </div>
+        </div>
+        <div id="topic">
+            <!--<div class="topicTitle"><div class="tag">{$data.post_tag}</div>&nbsp;{:mb_substr($data['name'],0,20,'utf-8')}</div>-->
+
+            <volist name='data.main' id='vo'>
+                <pre>{$vo.content}</pre>
+                <neq name='vo.imginfo' value=''>
+                <p>
+                    <volist name='vo.imginfo' id='voo'>
+                    <img src="{$voo.img}">
+                    </volist>
+                </p>
+                </neq>
+            </volist>
+        </div>
+        <div id="shareDiv">
+            <div><img src="__ROOT__/include/api/clickCollect.png" height="18"><div>收藏</div></div>
+            <div>|</div>
+            <div><img src="__ROOT__/include/api/no_comment.png" height="18"><div>{$data.commentnum}</div></div>
+            <div>|</div>
+            <div style='cursor:pointer'><img src="__ROOT__/include/api/no_praise.png" height="18" onclick="praise({$data.post_id},{$data.praisenum})" id='nopraise'><img src="__ROOT__/include/api/praise_click.png" id='praised' height="18"><div id='num'>{$data.praisenum}</div></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <neq name='list' value=''>
+    <div id="footer">
+        <volist name='list' id='vo'>
+        <div class="line"></div>
+        <div class="commentDiv">
+            <div class="userPicInfo">
+                <neq name='vo.user.img' value=''>
+                <div style="background: url('{$vo.user.img}');background-size:40px"></div>
+                <else />
+                <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png');background-size:40px"></div>
+                </neq>
+                <div>
+                    <div><div class="userName">{$vo.user.nickname}</div> 
+                        <neq name='vo.touser' value=''>
+                        <span>回复</span><div class="userName">{$vo.touser.nickname}</div> 
+                        </neq>
+                    </div>
+                    <div>{:topictime($vo['add_time'])}</div>
+                </div>
+            </div>
+            <div class="commentContent">{$vo.content}</div>
+        </div>
+        </volist>
+    </div>
+    </neq>
+
+    <neq name="_GET['flag']" value='1'>
+    <div class="downloadDiv"><a href='{$url}'><img src="__ROOT__/include/weixin/app/down_2.png" width="100%"></a></div>
+    </neq>
+
+<script>
+var allurl = window.document.location;
+        allurl = allurl.toString();
+
+function urlredirect(id) {
+    var redurl = allurl.replace(/newtdetail.*/,'taglist/post_tag_id/'+id);
+    window.location.href = redurl;
+}
+
+function praise(id,praisenum) {
+    var redurl = allurl.replace(/newtdetail.*/,'hitpraise');
+    $.post(redurl,{post_id:id},function(data) {
+        //alert(data);
+    });
+    
+    document.getElementById('praised').style.display ='inline-block';
+    document.getElementById('nopraise').style.display ='none';
+    document.getElementById('num').innerHTML = praisenum + 1;
+}
+</script>
+    <else />
+
+    <div id="topicTag">
+        <div>话题来自：<span>臭美帮</span> <img src="__ROOT__/include/api/topic_click.png"></div>
+    </div>
+    <div id="main">
+        <div id="topic">对不起，您所查看的话题已删除。</div>
+    </div>
+
+    <neq name="_GET['flag']" value='1'>
+    <div class="downloadDiv"><a href='{$url}'><img src="__ROOT__/include/weixin/app/down_2.png" width="100%"></a></div>
+    </neq>
+
+    </notempty>
+    
+</body>
+</html>

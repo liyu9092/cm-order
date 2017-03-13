@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>发型分享</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @charset "utf-8";
+        /* Global Style Settings */
+        *{margin:0; padding:0;}
+        div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin:0;padding:0; font-family: Calibri; font-size:16px; color:#333;
+        }
+        body{
+            margin: 0 auto;
+            max-width: 640px;
+        }
+        html{padding: 0;}
+        img{vertical-align:top; border:0; }
+        .clear{width:100%;clear:both; font-size:0; height:0; line-height:0; overflow:hidden}
+        .line{
+            width: 100%;
+            height:1px;
+            clear:both;
+            font-size:0;
+            line-height:0;
+            overflow:hidden;
+            border:0 solid #f2f2f2;
+            border-top-width: 1px;
+        }
+        #main{
+            width: 100%;
+            margin: 10px auto;
+        }
+        div{
+            font:normal 14px "微软雅黑";
+        }
+        #main > div{
+            width: 95%;
+            margin: 10px auto;
+            background-color: #FFF;
+        }
+        #main > div > div{
+            width:100%;
+            margin: 10px auto;
+        }
+        .userPicInfo div{
+            font-family: "微软雅黑";
+        }
+        .userPicInfo{
+            height: 40px;
+            padding: 0;
+        }
+        .userPicInfo > div{
+            float: left;
+        }
+        .userPicInfo > div:nth-child(1){
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            /*background: url('../../../images/lookHS/user-icon.png') no-repeat 50% 50%;*/
+            background-size: 40px;
+        }
+        .userPicInfo > div:nth-child(2){
+            width: auto;
+            margin: 0 10px;
+            color: #fff;
+            font: normal 14px '微软雅黑';
+        }
+
+        .topic{
+            height: 100%;
+            padding: 0;
+        }
+        .topic > div{
+            width: 33%;
+            float: left;
+            padding: 0;
+            margin: 0;
+        }
+        .topic img{
+            width: 100%;
+            margin: 0 auto;
+        }
+        .lvTag{
+            /*width: 20px;*/
+            /*height: 14px;*/
+            margin-left: 3px;
+            padding: 0 2px;
+            border-radius: 5px;
+            background-color: #59c9f9;
+            color: #fff;
+            font:normal 12px Calibri!important;
+            display: inline-block;
+        }
+        .userName{
+            color: #556b93;
+        }
+        .userName + div{
+            color: #cbcbcb;
+            font-size: 12px;
+        }
+        .topicTitle{
+            color: #333333;
+            font-size: 16px;
+        }
+        .tag{
+            display: inline-block;
+            /*height: 16px;*/
+            padding: 3px;
+            background-color: #fb4a92;
+            color: #fff;
+            font-size: 14px;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+        .shareDiv{
+            height: 20px;
+            padding:5px 0;
+            background-color: #f2f2f2;
+            border-radius: 15px;
+        }
+        .shareDiv > div{
+            float: left;
+            text-align: center;
+        }
+        .shareDiv > div:nth-child(2n+1){
+            width: 25%;
+        }
+        .shareDiv > div:nth-child(2n){
+            width: 10%;
+            text-align: center;
+            color: #e1e1e1;
+            /*font-size: 20px;*/
+        }
+        .shareDiv > div >div{
+            display: inline-block;
+            margin: 2px 0 0 5px;
+            color: #666666;
+        }
+        .userComment > div{
+            display: inline-block;
+            /*float: left;*/
+        }
+        .userComment > div > div{
+            display: inline-block;
+        }
+        .userComment > div:nth-child(1){
+            width: 16px;
+            height: 16px;
+            border-radius: 8px;
+			vertical-align: middle;
+            /*background: url('../../../images/lookHS/user-icon.png') no-repeat 50% 50%;*/
+            background-size: 16px;
+        }
+        .downloadDiv{
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            margin: 0 auto;
+            max-width: 640px;
+        }
+        .aclass{
+            color: #333333;
+            text-decoration: none;
+        }
+
+    </style>
+    <script type="text/javascript" src="__ROOT__/include/js/jquery.js"></script>
+</head>
+<body>
+
+<div id="main">
+    <volist name='data' id='vo'>
+    <div class="topicContent" rel='{$vo.post_id}'>
+        <div class="userPicInfo">
+
+            <neq name='vo.user.img' value=''>
+            <div style="background: url('{$vo.user.img}');background-size:40px"></div>
+            <else />
+            <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png');background-size:40px"></div>
+            </neq>
+
+            <div>
+                <div class="userName">{$vo.user.nickname}<div class="lvTag">{$vo.user.grade}</div></div>
+                <div>{:topictime($vo['add_time'])}</div>
+            </div>
+        </div>
+        <div class="topicTitle"><div class="tag">{$vo.post_tag}</div>&nbsp;{:ubb_replace(mb_substr($vo['name'],0,30,'utf8'))}</div>
+        <neq name='vo.images' value=''>
+        <div class="topic">
+            <volist name='vo.images' id='voo'>
+            <div><img src="{$voo.thumbimg}" width="100%"></div>
+            </volist>
+        </div>
+        </neq>
+        <div class="clear" style="height: 5px;"></div>
+        <div class="shareDiv" style="margin:5px 0;">
+            <div><img src="__ROOT__/include/api/clickCollect.png" height="18"><div>收藏</div></div>
+            <div>|</div>
+            <div><img src="__ROOT__/include/api/no_comment.png" height="18"><div>{$vo.commentnum}</div></div>
+            <div>|</div>
+            <div><img src="__ROOT__/include/api/praise_click.png" height="18"><div>{$vo.praisenum}</div></div>
+        </div>
+        <div class="clear" style="padding: 1px;margin:5px;"></div>
+        
+        <volist name='vo.comment' id='voo'>
+        <div class="commentDiv" style=" width: 98%;margin: 5px auto;">
+            <div class="userComment">
+                <neq name='vo.user.img' value=''>
+                <div style="background: url('{$voo.user.img}');background-size:16px"></div>
+                <else />
+                <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png');background-size:16px"></div>
+                </neq>
+                <div><div class="userName">{$voo.user.nickname}</div>
+                    <neq name='vo.touser' value=''>
+                    <span>回复</span><div class="userName">{$voo.touser.nickname}</div> 
+                    </neq>
+                </div>
+                <span>{$voo.content}</span>
+            </div>
+        </div>
+        </volist>
+
+    </div>
+    <div class="clear" style="width:100%;background: #f2f2f2; height: 10px;"></div>
+    </volist>
+
+</div>
+<div class="clear"></div>
+<div class="downloadDiv"><a href='{$url}'><img src="__ROOT__/include/weixin/app/down_2.png" width="100%"></a></div>
+<script>
+var allurl = window.document.location;
+        allurl = allurl.toString();
+$('.topicContent').click(function() {
+    var id = $(this).attr('rel');
+    var redurl = allurl.replace(/taglist.*/,'newtdetail/post_id/'+id);
+    window.location.href = redurl;
+});
+</script>
+</body>
+</html>

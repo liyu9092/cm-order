@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>发型分享</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @charset "utf-8";
+        /* Global Style Settings */
+        *{margin:0; padding:0;}
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin:0;padding:0; font-family:Arial; font-size:16px; color:#333;
+        }
+        html{padding: 0;}
+        img{vertical-align:top; border:0; }
+        .clear{clear:both; font-size:0; height:0; line-height:0; overflow:hidden}
+        .line{
+            width: 100%;
+            height:1px;
+            clear:both;
+            font-size:0;
+            line-height:0;
+            overflow:hidden;
+            border:0 solid #c9c9c9;
+            border-top-width: 1px;
+        }
+        #main{
+            width: 100%;
+            margin: 20px auto;
+            background: url("{:APP_INCLUDE}api/sort_line_bg.png") repeat-y;
+        }
+        #topic{
+            width: 96%;
+            height: 100%;
+            margin: 0 auto;
+            background-color: #FFF;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+        }
+        #topic > div{
+            margin: 10px 5px;
+        }
+        #topic > div:nth-child(2){
+            color: #747474;
+            font: normal 16px '微软雅黑';
+        }
+        #tab >div{
+            width: auto;
+            margin: 0 3px;
+            height: 20px;
+            padding: 5px 10px;
+            float: left;
+            border-radius: 15px;
+            color: #fff;
+            font: normal 16px '微软雅黑';
+        }
+        .special_1{
+            background-color:#bdab80;
+        }
+        .special_2{
+            background-color:#f78eb2;
+        }
+        .special_3{
+            background-color:#6ec9bf;
+        }
+        .special_4{
+            background-color:#81c859;
+        }
+        .special_5{
+            background-color:#fbc864;
+        }
+        .special_6{
+            background-color:#c864c7;
+        }
+        .special_7{
+            background-color:#79ade1;
+        }
+        .special_8{
+            background-color:#fee973;
+        }
+        .special_9{
+            background-color:#ee5f64;
+        }
+        #top3{
+            width: 100%;
+            height:250px;
+            background: url("{:APP_INCLUDE}api/sort_bg.png") no-repeat;
+        }
+        #top3-user{
+            margin: 10px 10px 10px 60px;
+            height: 230px;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+        }
+        #top2{
+            width: 100%;
+            height:160px;
+            background: url("{:APP_INCLUDE}api/sort_bg.png") no-repeat;
+        }
+        #top2-user{
+            margin: 10px 10px 10px 60px;
+            height: 150px;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+        }
+        #top1{
+            width: 100%;
+            height:80px;
+            background: url("{:APP_INCLUDE}api/sort_bg.png") no-repeat;
+        }
+        #top1-user{
+            margin: 10px 10px 10px 60px;
+            height: 75px;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+        }
+        .userPicInfo{
+            height: 73px;
+        }
+        .userPicInfo > div{
+            float: left;
+        }
+        .userPicInfo > div:nth-child(1){
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            border-radius: 25px;
+            background: url('../../../images/lookHS/user-icon.png') no-repeat 50% 50%;
+            background-size: 50px;
+        }
+        .userPicInfo > div:nth-child(2){
+            width: auto;
+            margin:4px;
+            color: #fff;
+            font: normal 16px '微软雅黑';
+        }
+        .userPicInfo > div:nth-child(3){
+            width: 64px;
+            margin:4px 10px;
+            float: right;
+        }
+        .userInfo >div:nth-child(1){
+            max-width: 70px;
+            color: #747474;
+            font: normal 16px '微软雅黑';
+        }
+        .userInfo span{
+            color: #747474;
+            font: normal 14px '微软雅黑';
+        }
+        .userInfo img{
+            margin:3px 5px;
+        }
+        .imgDiv1{
+            border: 1px solid #f5574f;
+        }
+        .imgDiv2{
+            border: 1px solid #fe8746;
+        }
+        .imgDiv3{
+            border: 1px solid #fdbe16;
+        }
+
+        #else{
+            width: 100%;
+            height: 500px;
+        }
+        .elseUserComment{
+            background: url("{:APP_INCLUDE}api/point.png") no-repeat;
+            min-height:60px;
+        }
+        .elseUserComment >div:nth-child(1){
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin:15px 10px;
+            border-radius: 15px;
+            background: url('../../../images/lookHS/user-icon.png') no-repeat 50% 50%;
+            background-size: 30px;
+            -webkit-background-size: 30px;
+        }
+        .elseUserComment >div:nth-child(2){
+            width: 77%;
+            float: left;
+            margin:5px 10px;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+        }
+        .commentInfo > div{
+            margin:5px 10px;
+        }
+        .commentInfo > div:nth-child(1){
+            font: normal 16px '微软雅黑';
+            color: #747474;
+        }
+        .timeDiv{
+            font: normal 14px '微软雅黑';
+            color: #747474;
+        }
+        .proveDiv >div{
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
+        .proveDiv span{
+            margin: 5px auto;
+        }
+        .commentDiv{
+            width: 100%;
+            background-color: #f6f9fb;
+            border: 0 solid #c9c9c9;
+            border-top-width: 1px;
+            border-bottom-width: 1px;
+            margin: 10px 0 !important;
+        }
+        .commentDiv > div{
+            margin: 10px;
+            color: #747474;
+            font: normal 16px '微软雅黑';
+        }
+        .userName{
+            color: #556b93;
+        }
+        .bfix{margin:0px;padding:0px;position:fixed;left:0px;bottom:0px;width:100%}
+        #dimg{max-width:100%;width:100%;margin:0px;padding:0px;}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="topic">
+            <img src="{$group['img']}" width="100%">
+            <div>{:ubb_replace($group['name'])}</div>
+            <div id="tab">
+                <neq name='special' value=''>
+                <volist name='special' id='vo' key='key'>
+                <php>$class = $key%9;</php>
+                <div class='special_{$class}'>{$vo.name}</div>
+                </volist>
+                </neq>
+            </div>
+            <div class="clear" style="height: 10px;"></div>
+        </div>
+
+        <neq name='top' value=''>
+        <php>$count = count($top);</php>
+        <if condition="$count eq 1">
+        <div id="top1">
+            <div id="top1-user">
+                <volist name='top' id='vo' key='key'>
+                <div class="userPicInfo">
+
+                    <neq name='vo.user.img' value=''>
+                    <div style="background: url('{$vo.user.img}') no-repeat 50% 50%;background-size:52px"></div>
+                    <else />
+                    <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png') no-repeat 50% 50%;background-size:52px"></div>
+                    </neq>
+
+                    <div class="userInfo">
+                        <div>{$vo.user.nickname}</div>
+                        <div><img src="{:APP_INCLUDE}api/level_icon.png"><span>LV{$vo.user.grade}</span></div>
+                        <!--<div><img src="../../../images/lookHS/woman.png"><span>18-25岁</span></div>-->
+                    </div>
+                    <div class="imgDiv1"><img src="{$vo.img}" width="64" height="64"></div>
+                </div>
+                </volist>
+            </div>
+        </div>
+        <elseif condition="$count eq 2" />
+        <div id="top2">
+            <div id="top2-user">
+                <volist name='top' id='vo' key='key'>
+                <div class="userPicInfo">
+
+                    <neq name='vo.user.img' value=''>
+                    <div style="background: url('{$vo.user.img}') no-repeat 50% 50%;background-size:52px"></div>
+                    <else />
+                    <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png') no-repeat 50% 50%;background-size:52px"></div>
+                    </neq>
+
+                    <div class="userInfo">
+                        <div>{$vo.user.nickname}</div>
+                        <div><img src="{:APP_INCLUDE}api/level_icon.png"><span>LV{$vo.user.grade}</span></div>
+                        <!--<div><img src="../../../images/lookHS/woman.png"><span>18-25岁</span></div>-->
+                    </div>
+                    <div class="imgDiv1"><img src="{$vo.img}" width="64" height="64"></div>
+                </div>
+
+                <if condition="$key neq 2"><div class="line"></div></if>
+                </volist>
+            </div>
+        </div>
+        <else />
+        <div id="top3">
+            <div id="top3-user">
+                <volist name='top' id='vo' key='key'>
+                <div class="userPicInfo">
+
+                    <neq name='vo.user.img' value=''>
+                    <div style="background: url('{$vo.user.img}') no-repeat 50% 50%;background-size:52px"></div>
+                    <else />
+                    <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png') no-repeat 50% 50%;background-size:52px"></div>
+                    </neq>
+                    
+                    <div class="userInfo">
+                        <div>{$vo.user.nickname}</div>
+                        <div><img src="{:APP_INCLUDE}api/level_icon.png"><span>LV{$vo.user.grade}</span></div>
+                        <!--<div><img src="../../../images/lookHS/woman.png"><span>18-25岁</span></div>-->
+                    </div>
+                    <div class="imgDiv1"><img src="{$vo.img}" width="64" height="64"></div>
+                </div>
+
+                <if condition="$key neq 3"><div class="line"></div></if>
+                </volist>
+            </div>
+        </div>
+        </if>
+        </neq>
+
+        <neq name='comment' value=''>
+        <div id="else">
+            <volist name='comment' id='vo'>  
+            <if condition="$vo['width'] eq 0">
+            <div class="elseUserComment">
+
+                <neq name='vo.user.img' value=''>
+                <div style="background: url('{$vo.user.img}') no-repeat 50% 50%;background-size:32px"></div>
+                <else />
+                <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png') no-repeat 50% 50%;background-size:32px"></div>
+                </neq>
+
+                <div class="commentInfo">
+                    <div>{:ubb_replace($vo['content'])}</div>
+                    <div class="timeDiv">{:topictime($vo['add_time'])}</div>
+                </div>
+            </div>
+            <else />
+            <div class="elseUserComment">
+
+                <neq name='vo.user.img' value=''>
+                <div style="background: url('{$vo.user.img}') no-repeat 50% 50%;background-size:32px"></div>
+                <else />
+                <div style="background: url('__ROOT__/include/api/zone_topic_user_head.png') no-repeat 50% 50%;background-size:32px"></div>
+                </neq>
+
+                <div class="commentInfo">
+                    <div>{$vo.content}</div>
+                    <img src="{$vo.img}" width="90%" style="border: 1px solid #cacaca;margin: 0 10px;">
+                    <div class="timeDiv">{:topictime($vo['add_time'])}</div>
+                    <div class="proveDiv">
+                        <div>
+                            <img src="{:APP_INCLUDE}api/fit.png">
+                            <div>{$vo.fit}</div>
+                        </div>
+                        <div>
+                            <img src="{:APP_INCLUDE}api/not-fit.png">
+                            <div>{$vo.notfit}</div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <neq name='vo.childcomment' value=''>
+                    <div class="commentDiv">
+                        <volist name='vo.childcomment' id='voo'>
+                        <div>
+                            <eq name='voo.touser' value=''>
+                            <span class="userName">{$voo.user.nickname}：</span><span>{$voo.content}</span>
+                            <else />
+                            <span class="userName">{$voo.user.nickname}</span><span>回复</span>
+                            <span class="userName">{$voo.touser.nickname}：</span><span>{$voo.content}</span>
+                            </eq>
+                        </div>
+                        </volist>
+                    </div>
+                    </neq>
+                </div>
+            </div>
+            </if>
+            <div class="clear"></div>
+            </volist>
+        </div>
+        </neq>
+
+        <div class="clear"></div>
+    </div>
+
+<p class='bfix'><a href='{$url}'><img id='dimg' src='__ROOT__/include/weixin/app/down_2.png'></a></p>
+<script>
+setTimeout(function() {
+var x=document.getElementById("dimg");
+x.style.display = "block";
+},100);
+</script>
+
+</body>
+</html>

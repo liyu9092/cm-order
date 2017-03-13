@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$title}</title>
+</head>
+<style>
+body{margin:0px;padding:0px;}
+img{max-width:100%;width:100%;margin:0px;padding:0px;}
+p{margin:0px;padding:0px;}
+</style>
+<body>
+<p><img src='__ROOT__/include/weixin/app/head.png'></p>
+<eq name='weixin' value=''>
+<a href='{$url}'><p><img src='__ROOT__/include/weixin/app/download_now.png'></p></a>
+<else/>
+<p id='weixin'><img src='__ROOT__/include/weixin/app/download_now.png'></p>
+</eq>
+<script>
+document.getElementById('weixin').onclick = function() {
+    window.location.href = "{:U('Mcmdown/refer')}";
+}
+</script>
+</body>
+</html>
